@@ -86,13 +86,13 @@ reviewSchema.post('save', function () {
   this.constructor.calcAverageRating(this.tour);
 });
 
-reviewSchema.pre(/^findOneAnd/, async function(next) {
+reviewSchema.pre(/^findOneAnd/, async function (next) {
   this.review = await this.findOne();
   // console.log(this.review);
   next();
 });
 
-reviewSchema.post(/^findOneAnd/, async function() {
+reviewSchema.post(/^findOneAnd/, async function () {
   // await this.findOne(); does NOT work here, query has already executed
   await this.review.constructor.calcAverageRating(this.review.tour);
 });
